@@ -19,7 +19,6 @@ public class Starter extends ApplicationAdapter {
 	private Tank me_tansk;
 	private KeyBoardAdapter inputProcessor = new KeyBoardAdapter();
 	private List<Stone> stones;
-	private Texture pilet;
 
 	@Override
 	public void create () {
@@ -32,8 +31,6 @@ public class Starter extends ApplicationAdapter {
 			int y = MathUtils.random(Gdx.graphics.getHeight());
 			return new Stone(x, y);
 		}).collect(Collectors.toList());
-
-		pilet = new Texture("Fier.png");
 	}
 
 	@Override
@@ -52,7 +49,14 @@ public class Starter extends ApplicationAdapter {
 		emitter.Act(Gdx.graphics.getDeltaTime());
 		for(Projectile projectile : emitter.getProjectiles()){
 			Vector2 position = projectile.getPosition();
-			batch.draw(pilet, position.x - 5, position.y - 5);
+			batch.draw(projectile.pilet, position.x - 5, position.y - 5);
+			stones.forEach(stone -> {
+				if(stone.rectangle.contains(projectile.rectangle)){
+					emitter.destroyProjectile(projectile);
+					stone.takesDamage();
+				}
+				if(stone.IsDestruction) stones.remove(stone);
+			});
 		}
 
 		me_tansk.render(batch);

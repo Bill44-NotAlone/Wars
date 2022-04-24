@@ -32,8 +32,7 @@ public class Emitter {
         for(Projectile projectile : projectiles){
             projectile.Act(delta);
             if(projectile.IsFinished()){
-                projectiles.removeValue(projectile, true);
-                projectilePool.free(projectile);
+                destroyProjectile(projectile);
             }
         }
 
@@ -54,5 +53,10 @@ public class Emitter {
 
     public void setPosition(Vector2 position) {
         this.position = position;
+    }
+
+    public void destroyProjectile(Projectile projectile){
+        projectiles.removeValue(projectile, true);
+        projectilePool.free(projectile);
     }
 }

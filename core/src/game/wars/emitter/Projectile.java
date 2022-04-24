@@ -1,15 +1,18 @@
 package game.wars.emitter;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 
 public class Projectile implements Pool.Poolable{
+    public Texture pilet = new Texture("Fier.png");
+    public Rectangle rectangle = new Rectangle(0, 0, pilet.getWidth(), pilet.getHeight());
     private float size;
     private float speed;
     private float distance;
     private float distance2;
-
     private final Vector2 position = new Vector2();
     private final Vector2 startpoint = new Vector2();
     private final Vector2 nextpoint = new Vector2(1, 1);
@@ -41,6 +44,7 @@ public class Projectile implements Pool.Poolable{
         this.size = 0;
         this.speed = 0;
         this.distance = 0;
+        rectangle.setPosition(position);
     }
 
     public boolean IsFinished() {
